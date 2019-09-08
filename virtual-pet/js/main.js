@@ -42,7 +42,7 @@ gameScene.create = function() {
   let bg = this.add.sprite(0, 0, 'backyard').setInteractive();
   bg.setOrigin(0, 0);
  
-  // event listener for the background
+  // event listener for the background, where the pet is going to move to take the iten
   bg.on('pointerdown', this.placeItem, this);
  
   this.pet = this.add.sprite(100, 200, 'pet', 0).setInteractive();
@@ -50,6 +50,12 @@ gameScene.create = function() {
  
   // make pet draggable
   this.input.setDraggable(this.pet);
+  // follow pointer (mouse/finger) when dragging
+  this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
+    // make sprite be located at the coordinates of the dragging
+    gameObject.x = dragX;
+    gameObject.y = dragY;
+  });
  
   // animation
   this.anims.create({
@@ -62,19 +68,11 @@ gameScene.create = function() {
     repeat: 0 // to repeat forever: -1
   });
  
-  // follow pointer (mouse/finger) when dragging
-  this.input.on('drag', function(pointer, gameObject, dragX, dragY) {
-    // make sprite be located at the coordinates of the dragging
-    gameObject.x = dragX;
-    gameObject.y = dragY;
-  });
- 
   // create ui
   this.createUi();
  
   // show stats to the user
   this.createHud();
-  this.refreshHud();
  
   // decay of health and fun over time
   this.timedEventStats = this.time.addEvent({
@@ -283,16 +281,18 @@ gameScene.updateStats = function(statDiff) {
       }
     }
   }
- 
-  // refresh HUD
-  this.refreshHud();
- 
+
   // check to see if the game ended
   if(isGameOver) this.gameOver();
 };
+
+gameScene.update  = function (time) {
+ // refresh HUD
+ this.refreshHud();
+};
  
 gameScene.gameOver = function() {
-  console.log('game over');
+  console.log('game over!');
 };
  
 // our game's configuration

@@ -3,8 +3,6 @@ const gameScene = new Phaser.Scene("Game");
 
 // declare and load constantes to the scene
 gameScene.init = function () {
-    // Load assets: audio, sprites' images, etc
-    // So when the game starts every assets ir already on memory
     const { height } = this.sys.game.config;
 
     this.speed = 4;
