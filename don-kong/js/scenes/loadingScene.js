@@ -6,7 +6,7 @@ let bootScene = new Phaser.Scene('Boot');
 // load asset files for our game
 bootScene.preload = function () {
     // load assets
-    this.load.image('logo', 'assets/images/rubber_duck.png');
+    this.load.image('logo', 'assets/images/gorilla3.png');
 };
 // executed once, after assets were loaded
 bootScene.create = function () {
@@ -47,38 +47,66 @@ loadingScene.preload = function () {
     }, this);
 
     // load assets
-    this.load.image('backyard', 'assets/images/backyard.png');
-    this.load.image('apple', 'assets/images/apple.png');
-    this.load.image('candy', 'assets/images/candy.png');
-    this.load.image('rotate', 'assets/images/rotate.png');
-    this.load.image('toy', 'assets/images/rubber_duck.png');
+    // load images
+  this.load.image('ground', 'assets/images/ground.png');
+  this.load.image('platform', 'assets/images/platform.png');
+  this.load.image('block', 'assets/images/block.png');
+  this.load.image('goal', 'assets/images/gorilla3.png');
+  this.load.image('barrel', 'assets/images/barrel.png');
 
-    // load spritesheet
-    this.load.spritesheet('pet', 'assets/images/pet.png', {
-        frameWidth: 97,
-        frameHeight: 83,
-        margin: 1,
-        spacing: 1
-    });
+  // load spritesheets
+  this.load.spritesheet('player', 'assets/images/player_spritesheet.png', {
+    frameWidth: 28,
+    frameHeight: 30,
+    margin: 1,
+    spacing: 1
+  });
 
-    // TESTING - to see the progress bar in action!
-//   for(let i = 0; i < 200; i++) {
-//     this.load.image('test' + i, 'assets/images/candy.png');
-//   }
+  this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', {
+    frameWidth: 20,
+    frameHeight: 21,
+    margin: 1,
+    spacing: 1
+  });
+
+  
+  this.load.json('levelData', 'assets/json/levelData.json');
 };
 
 // executed once, after assets were loaded
 loadingScene.create = function () {
-    // animation
+  //  Our player animations, turning, walking left and walking right.
     this.anims.create({
-        key: 'funnyfaces',
-        frames: this.anims.generateFrameNames('pet', {
-            frames: [1, 2, 3]
+        key: 'walking',
+        // frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2 }),
+        frames: this.anims.generateFrameNames('player', {
+          frames: [0, 1, 2, 4]
         }),
-        frameRate: 7,
-        yoyo: true,
-        repeat: 0 // to repeat forever: -1
+        frameRate: 10,
+        repeat: -1
     });
+
+    this.anims.create({
+      key: 'turn',
+      frames: [{ key: 'player', frame: 3 }],
+      frameRate: 20
+  });
+
+    this.anims.create({
+        key: 'jump',
+        frames: [{ key: 'player', frame: 2 }],
+        frameRate: 20
+    });
+
+    // fire animation
+  this.anims.create({
+    key: 'burning',
+    frames: this.anims.generateFrameNames('fire', {
+      frames: [0, 1]
+    }),
+    frameRate: 4,
+    repeat: -1
+  });
 
     this.scene.start('Home');
 };

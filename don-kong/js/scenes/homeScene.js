@@ -4,30 +4,24 @@ let homeScene = new Phaser.Scene('Home');
 // executed once, after assets were loaded
 homeScene.create = function () {
   // game background, with active input
-  let bg = this.add.sprite(0, 0, 'backyard').setInteractive();
-  bg.setOrigin(0, 0);
+  this.add.image(180, 604, 'ground');
 
   // welcome text
   let gameW = this.sys.game.config.width;
   let gameH = this.sys.game.config.height;
-  let text = this.add.text(gameW / 2, gameH / 2, '😄 VIRTUAL PET', {
+  let text = this.add.text(gameW / 2, gameH / 2, '🦍 Dn K', {
     font: '40px Arial',
-    fill: '#ffffff',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    fill: '#000000',
+    backgroundColor: 'rgba(255,255,255,0.7)',
     padding: {
       x: 10,
       y: 10
     }
   });
   text.setOrigin(0.5, 0.5);
-  text.depth = 1;
+  text.setInteractive();
 
-  // // text background
-  // let textBg = this.add.graphics();
-  // textBg.fillStyle(0x000000, 0.7);
-  // textBg.fillRect(gameW/2 - text.width/2 - 10, gameH/2 - text.height/2 - 10, text.width + 20, text.height + 20);
-
-  bg.on('pointerdown', function () {
+  text.on('pointerdown', function () {
     this.scene.start('Game');
   }, this);
 };
