@@ -1,4 +1,13 @@
 {
+  "spawner": {
+    "interval": 3000,
+    "speed": 80,
+    "lifespan": 30000
+  },
+  "camera": {
+    "width": 360,
+    "height": 700
+  },
   "player": {
     "x": 190,
     "y": 538

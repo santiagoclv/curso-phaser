@@ -69,7 +69,8 @@ loadingScene.preload = function () {
     spacing: 1
   });
 
-  
+  // console.log(this.cache.destroy())
+  // this.cache.json.destroy();
   this.load.json('levelData', 'assets/json/levelData.json');
 };
 
@@ -108,5 +109,5 @@ loadingScene.create = function () {
     repeat: -1
   });
 
-    this.scene.start('Home');
+  this.scene.start('Home');
 };
